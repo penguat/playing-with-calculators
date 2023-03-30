@@ -4,11 +4,14 @@
   "description": "Alex playing with calculators, just messing around really",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --coverage",
+    "build": "tsc"
   },
   "author": "Alex Addison",
   "license": "WTFPL",
-  "dependencies": {
-    "jest": "^29.5.0"
+  "devDependencies": {
+    "@types/jest": "^29.5.0",
+    "ts-jest": "^29.0.5",
+    "typescript": "^5.0.2"
   }
 }
