@@ -1,0 +1,14 @@
+{
+  "name": "playing_with_calculators",
+  "version": "0.1.0",
+  "description": "Alex playing with calculators, just messing around really",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Alex Addison",
+  "license": "WTFPL",
+  "dependencies": {
+    "jest": "^29.5.0"
+  }
+}
