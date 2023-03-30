@@ -1,4 +1,4 @@
-import { getNextToken } from "./calculator";
+import { getNextToken, interpretToken } from "./calculator";
 
 describe("calculator", () => {
   describe("getNextToken", () => {
@@ -24,5 +24,28 @@ describe("calculator", () => {
     // tab instead of space / other whitespace chars?
     // blank string
   
+  })
+
+  describe("interpretToken", () => {
+    it("should parse numbers to number and push them onto the stack given", () => {
+      expect(interpretToken("123", [])).toEqual([123]);
+      expect(interpretToken("345", [])).toEqual([345]);
+      expect(interpretToken("567", [123, 456])).toEqual([123, 456, 567]);
+    })
+
+    it("should parse the + operator, pop 2 numbers off the stack and push the result of addition", () => {
+      expect(interpretToken("+", [12, 34])).toEqual([46]);
+      expect(interpretToken("+", [12, 34, 56])).toEqual([12, 90]);
+    })
+
+    it("should parse the - operator, pop 2 numbers off the stack and push the result of subtraction", () => {
+      expect(interpretToken("-", [123, 45])).toEqual([78]);
+      expect(interpretToken("-", [12, 50, 30])).toEqual([12, 20]);
+    })
+
+    //TODO
+    // test floats
+    // what if not enough numbers are on the stack?
+    // what if it's not a known operator / number?
   })
 })
