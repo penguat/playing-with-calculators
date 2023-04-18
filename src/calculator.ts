@@ -39,3 +39,15 @@ export const interpretToken = (token: string, stack: Array<number>) :Array<numbe
 
   return newStack;
 }
+
+export const runToEnd = (input: string) => {
+  let stack: Array<number> = [];
+  while(input) {
+    let step = getNextToken(input)
+    stack = interpretToken(step.token, stack)
+
+    input = step.remainder
+  }
+
+  return stack;
+}

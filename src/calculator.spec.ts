@@ -1,4 +1,4 @@
-import { getNextToken, interpretToken } from "./calculator";
+import { getNextToken, interpretToken, runToEnd } from "./calculator";
 
 describe("calculator", () => {
   describe("getNextToken", () => {
@@ -57,5 +57,16 @@ describe("calculator", () => {
     // test floats
     // what if not enough numbers are on the stack?
     // what if it's not a known operator / number?
+  })
+
+  describe("runToEnd", () => {
+    it("runs the calculation until there is no more to interpret and returns the result", () => {
+      expect(runToEnd("1 2 +")).toEqual([3]);
+      expect(runToEnd("1 2 + 3 4 + * 5 * 6 +")).toEqual([111]);
+
+      //TODO should it just return the number if there's only 1 result?
+    })
+    
+
   })
 })
