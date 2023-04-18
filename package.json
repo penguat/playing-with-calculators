@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest --coverage",
-    "build": "tsc"
+    "build": "tsc && browserify out/index.js -o publish/bundle.js"
   },
   "author": "Alex Addison",
   "license": "WTFPL",
@@ -13,5 +13,8 @@
     "@types/jest": "^29.5.0",
     "ts-jest": "^29.0.5",
     "typescript": "^5.0.2"
+  },
+  "dependencies": {
+    "browserify": "^17.0.0"
   }
 }
