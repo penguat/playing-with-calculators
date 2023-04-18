@@ -1,4 +1,4 @@
-import { getNextToken, interpretToken, runToEnd } from "./calculator";
+import { getNextToken, interpretToken, moveOneStep, runToEnd } from "./calculator";
 
 describe("calculator", () => {
   describe("getNextToken", () => {
@@ -59,6 +59,21 @@ describe("calculator", () => {
     // what if it's not a known operator / number?
   })
 
+  describe("move 1 step", () => {
+    it("adds a number to the stack", () => {
+      expect(moveOneStep("123", [])).toEqual({input: "", stack: [123]})
+      expect(moveOneStep("34", [12])).toEqual({input: "", stack: [12, 34]})
+    })
+
+    it("adds two numbers together", () => {
+      expect(moveOneStep("+", [1, 4])).toEqual({input: "", stack: [5]})
+    })
+
+    it("pulls just the first part of the input", () => {
+      expect(moveOneStep("12 34 +", [])).toEqual({input: "34 +", stack: [12]})
+    })
+  })
+
   describe("runToEnd", () => {
     it("runs the calculation until there is no more to interpret and returns the result", () => {
       expect(runToEnd("1 2 +")).toEqual([3]);
@@ -66,7 +81,5 @@ describe("calculator", () => {
 
       //TODO should it just return the number if there's only 1 result?
     })
-    
-
   })
 })

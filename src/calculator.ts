@@ -40,6 +40,12 @@ export const interpretToken = (token: string, stack: Array<number>) :Array<numbe
   return newStack;
 }
 
+export const moveOneStep = (input: string, stack: Array<number>) => {
+  let step = getNextToken(input)
+  stack = interpretToken(step.token, stack);
+  return {input: step.remainder, stack}
+}
+
 export const runToEnd = (input: string) => {
   let stack: Array<number> = [];
   while(input) {
