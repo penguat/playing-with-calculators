@@ -25,6 +25,14 @@ export const interpretToken = (token: string, stack: Array<number>) :Array<numbe
       const number1 = newStack.pop() || 0;
       newStack.push(number1 - number2)
     break;
+    case "*":
+      newStack.push((newStack.pop() || 1) * (newStack.pop() || 1))
+    break;
+    case "/":
+      const denominator = newStack.pop() || 0;
+      const numerator = newStack.pop() || 0;
+      newStack.push(numerator / denominator);
+    break;
     default: 
     newStack.push(Number(token));
   }

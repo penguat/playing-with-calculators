@@ -43,6 +43,16 @@ describe("calculator", () => {
       expect(interpretToken("-", [12, 50, 30])).toEqual([12, 20]);
     })
 
+    it("should parse the * operator, pop 2 numbers off the stack and push the result of multiplication", () => {
+      expect(interpretToken("*", [98, 76])).toEqual([7448]);
+      expect(interpretToken("*", [12, 34, 56])).toEqual([12, 1904]);
+    })
+
+    it("should parse the / operator, pop 2 numbers off the stack, and push the result of division", () => {
+      expect(interpretToken("/", [12, 3])).toEqual([4]);
+      expect(interpretToken("/", [12, 35, 7])).toEqual([12, 5]);
+    })
+
     //TODO
     // test floats
     // what if not enough numbers are on the stack?
