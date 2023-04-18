@@ -46,11 +46,10 @@ export const moveOneStep = (input: string, stack: Array<number>) => {
   return {input: step.remainder, stack}
 }
 
-export const runToEnd = (input: string) => {
-  let stack: Array<number> = [];
-  while(input) {
-    ({input, stack} = moveOneStep(input, stack));
-  }
-
-  return stack;
+export const runToEnd = (input: string, stack: Array<number> = []): Array<number> => {
+  if (input === "")
+    return stack;
+  
+  const next = moveOneStep(input, stack);
+  return runToEnd(next.input, next.stack);
 }
