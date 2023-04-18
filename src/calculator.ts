@@ -49,10 +49,7 @@ export const moveOneStep = (input: string, stack: Array<number>) => {
 export const runToEnd = (input: string) => {
   let stack: Array<number> = [];
   while(input) {
-    let step = getNextToken(input)
-    stack = interpretToken(step.token, stack)
-
-    input = step.remainder
+    ({input, stack} = moveOneStep(input, stack));
   }
 
   return stack;
