@@ -1,5 +1,9 @@
-const hello = () => console.log("Hello World!");
+import { runToEnd } from "./calculator";
 
-hello();
+const textInput = document.getElementById("calculation") as HTMLInputElement;
+const result = document.getElementById("result") as HTMLElement;
 
-//TODO this should maybe control the interface / at least start that up?
+textInput.addEventListener("change", () => {
+    const calculationResult = runToEnd(textInput.value);
+    result.innerText = JSON.stringify(calculationResult);
+})
