@@ -8,11 +8,13 @@
     <script src="publish/bundle.js" defer></script>
 </head>
 <body>
-    <label for="calculation">Please enter a calculation in reverse polish notation</label>
+    <label for="calculation">Please enter a calculation in reverse polish / postfix notation</label>
     <input type="text" id="calculation"></input>
+    <input type="button" id="one-step" value="Run one step"/>
     <br/>
-    <span id="stack"></span>
-    <span id="result"></span>
+    <p>Stack at current step: <span id="stack"></span></p>
+    <p>Remaining input at current step: <span id="input"></span></p>
+    <p>Calculation result:<span id="result"></span></p>
     <br/>
     <p style="font-size: 10px;">NB this page isn't pretty - that's ok! It's really here to showcase the TypeScript!</p>
 </body>

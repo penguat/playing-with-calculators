@@ -64,10 +64,20 @@ const runRemainder = (iteration) => {
 Object.defineProperty(exports, "__esModule", { value: true });
 const calculator_1 = require("./calculator");
 const textInput = document.getElementById("calculation");
+const runOneStepButton = document.getElementById("one-step");
+const stack = document.getElementById("stack");
+const remainingInput = document.getElementById("input");
 const result = document.getElementById("result");
+let iteration;
 textInput.addEventListener("input", () => {
     const calculationResult = (0, calculator_1.runToEnd)(textInput.value);
     result.innerText = JSON.stringify(calculationResult);
+    iteration = { input: textInput.value, stack: [] };
+});
+runOneStepButton.addEventListener("click", () => {
+    iteration = (0, calculator_1.moveOneStep)(iteration);
+    stack.innerText = JSON.stringify(iteration.stack);
+    remainingInput.innerText = iteration.input;
 });
 
 },{"./calculator":1}]},{},[2]);
