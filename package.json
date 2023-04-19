@@ -5,14 +5,17 @@
   "main": "index.js",
   "scripts": {
     "test": "jest --coverage",
-    "build": "tsc && browserify out/index.js -o publish/bundle.js"
+    "test-watch": "jest --watch",
+    "build": "tsc && browserify out/index.js -o publish/bundle.js",
+    "watch": "tsc --watch & watchify out/index.js -o publish/bundle.js && kill $!"
   },
   "author": "Alex Addison",
   "license": "WTFPL",
   "devDependencies": {
     "@types/jest": "^29.5.0",
     "ts-jest": "^29.0.5",
-    "typescript": "^5.0.2"
+    "typescript": "^5.0.2",
+    "watchify": "^4.0.0"
   },
   "dependencies": {
     "browserify": "^17.0.0"
