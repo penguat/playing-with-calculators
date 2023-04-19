@@ -40,16 +40,25 @@ export const interpretToken = (token: string, stack: Array<number>) :Array<numbe
   return newStack;
 }
 
-export const moveOneStep = (input: string, stack: Array<number>) => {
-  let step = getNextToken(input)
-  stack = interpretToken(step.token, stack);
+export type iteration = {
+  input: string,
+  stack: Array<number>
+}
+
+export const moveOneStep = (iteration: iteration): iteration => {
+  let step = getNextToken(iteration.input)
+  let stack = interpretToken(step.token, iteration.stack);
   return {input: step.remainder, stack}
 }
 
-export const runToEnd = (input: string, stack: Array<number> = []): Array<number> => {
-  if (input === "")
-    return stack;
+export const runToEnd = (input: string) => {
+  return runRemainder({input: input, stack: []});
+};
+
+const runRemainder = (iteration: iteration): Array<number> => {
+  if (iteration.input === "")
+    return iteration.stack;
   
-  const next = moveOneStep(input, stack);
-  return runToEnd(next.input, next.stack);
+  const next = moveOneStep(iteration);
+  return runRemainder(next);
 }

@@ -1,7 +1,7 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.runToEnd = exports.interpretToken = exports.getNextToken = void 0;
+exports.runToEnd = exports.moveOneStep = exports.interpretToken = exports.getNextToken = void 0;
 const getNextToken = (input) => {
     const splitAt = input.indexOf(" ");
     if (splitAt === -1) {
@@ -42,16 +42,22 @@ const interpretToken = (token, stack) => {
     return newStack;
 };
 exports.interpretToken = interpretToken;
+const moveOneStep = (iteration) => {
+    let step = (0, exports.getNextToken)(iteration.input);
+    let stack = (0, exports.interpretToken)(step.token, iteration.stack);
+    return { input: step.remainder, stack };
+};
+exports.moveOneStep = moveOneStep;
 const runToEnd = (input) => {
-    let stack = [];
-    while (input) {
-        let step = (0, exports.getNextToken)(input);
-        stack = (0, exports.interpretToken)(step.token, stack);
-        input = step.remainder;
-    }
-    return stack;
+    return runRemainder({ input: input, stack: [] });
 };
 exports.runToEnd = runToEnd;
+const runRemainder = (iteration) => {
+    if (iteration.input === "")
+        return iteration.stack;
+    const next = (0, exports.moveOneStep)(iteration);
+    return runRemainder(next);
+};
 
 },{}],2:[function(require,module,exports){
 "use strict";
@@ -59,7 +65,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const calculator_1 = require("./calculator");
 const textInput = document.getElementById("calculation");
 const result = document.getElementById("result");
-textInput.addEventListener("change", () => {
+textInput.addEventListener("input", () => {
     const calculationResult = (0, calculator_1.runToEnd)(textInput.value);
     result.innerText = JSON.stringify(calculationResult);
 });

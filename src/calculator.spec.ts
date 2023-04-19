@@ -61,16 +61,16 @@ describe("calculator", () => {
 
   describe("move 1 step", () => {
     it("adds a number to the stack", () => {
-      expect(moveOneStep("123", [])).toEqual({input: "", stack: [123]})
-      expect(moveOneStep("34", [12])).toEqual({input: "", stack: [12, 34]})
+      expect(moveOneStep({input: "123", stack: []})).toEqual({input: "", stack: [123]})
+      expect(moveOneStep({input: "34", stack: [12]})).toEqual({input: "", stack: [12, 34]})
     })
 
     it("adds two numbers together", () => {
-      expect(moveOneStep("+", [1, 4])).toEqual({input: "", stack: [5]})
+      expect(moveOneStep({input: "+", stack: [1, 4]})).toEqual({input: "", stack: [5]})
     })
 
     it("pulls just the first part of the input", () => {
-      expect(moveOneStep("12 34 +", [])).toEqual({input: "34 +", stack: [12]})
+      expect(moveOneStep({input: "12 34 +", stack: []})).toEqual({input: "34 +", stack: [12]})
     })
   })
 
@@ -78,8 +78,8 @@ describe("calculator", () => {
     it("runs the calculation until there is no more to interpret and returns the result", () => {
       expect(runToEnd("1 2 +")).toEqual([3]);
       expect(runToEnd("1 2 + 3 4 + * 5 * 6 +")).toEqual([111]);
-
-      //TODO should it just return the number if there's only 1 result?
     })
+
+    //TODO how do we get just a single result (when that's appropriate)
   })
 })
