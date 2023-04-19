@@ -65,6 +65,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const calculator_1 = require("./calculator");
 const textInput = document.getElementById("calculation");
 const runOneStepButton = document.getElementById("one-step");
+const runSlowlyButton = document.getElementById("slowly");
 const stack = document.getElementById("stack");
 const remainingInput = document.getElementById("input");
 const result = document.getElementById("result");
@@ -74,10 +75,22 @@ textInput.addEventListener("input", () => {
     result.innerText = JSON.stringify(calculationResult);
     iteration = { input: textInput.value, stack: [] };
 });
-runOneStepButton.addEventListener("click", () => {
+const runStep = () => {
     iteration = (0, calculator_1.moveOneStep)(iteration);
     stack.innerText = JSON.stringify(iteration.stack);
     remainingInput.innerText = iteration.input;
+};
+runOneStepButton.addEventListener("click", () => {
+    runStep();
+});
+runSlowlyButton.addEventListener("click", () => {
+    const delayStep = () => {
+        runStep();
+        if (iteration.input.length > 0) {
+            setTimeout(delayStep, 1500);
+        }
+    };
+    delayStep();
 });
 
 },{"./calculator":1}]},{},[2]);
